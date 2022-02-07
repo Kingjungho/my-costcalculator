@@ -1,9 +1,10 @@
-import ExpenseItem from './ExpenseItem'
-import './Expense.css';
-
-
+import ExpensesList from './ExpensesList'
+import './Expense.css'
+import NewExpense from '../NewExpense/NewExpense'
+import ExpensesFilter from './ExpensesFilter'
+import { useState } from 'react'
 function Expense() {
-  const expenses = [
+  const DUMMY_EXPENSES = [
     {
       id: 'e1',
       title: 'Toilet Paper',
@@ -25,17 +26,32 @@ function Expense() {
     },
   ]
 
+  const [filteredYear, setFilteredYear] = useState('2020')
+  const [expenses, setExpenses] = useState(DUMMY_EXPENSES)
+
+  const filterChangeHandler = filterDate => {
+    setFilteredYear(filterDate)
+  }
+
+  const addExpenseHandler = expense => {
+    setExpenses(prevExpense => [...prevExpense, expense])
+  }
+
+  const filteredExpenses = DUMMY_EXPENSES.filter(
+    expense => expense.date.getFullYear() === Number(filteredYear)
+  )
+
   return (
-    <div className='expenses'>
-      {expenses.map(el => (
-        <ExpenseItem
-          key={el.id}
-          title={el.title}
-          amount={el.amount}
-          date={el.date}
+    <li>
+      <NewExpense expenses={DUMMY_EXPENSES} onAddExpense={addExpenseHandler} />
+      <div className="expenses">
+        <ExpensesFilter
+          selected={filteredYear}
+          onChangeFilter={filterChangeHandler}
         />
-      ))}
-    </div>
+        <ExpensesList filterExpense={filteredExpenses} />
+      </div>
+    </li>
   )
 }
 
