@@ -20,7 +20,7 @@ const ExpenseForm = props => {
 
     const expenseData = {
       title: enteredForm.title,
-      amount: enteredForm.amount,
+      amount: +enteredForm.amount,
       date: new Date(enteredForm.date),
     }
     props.onSaveExpenseData(expenseData)
@@ -44,7 +44,6 @@ const ExpenseForm = props => {
       alert('값을 전부 입력해주세요 !')
       return
     }
-    props.onHideBtn(false)
   }
 
   return (
@@ -68,6 +67,7 @@ const ExpenseForm = props => {
             step="0.01"
             value={enteredForm.amount}
             onChange={formChangeHandler}
+            required
           />
         </div>
         <div className="new-expense__control">
@@ -83,7 +83,7 @@ const ExpenseForm = props => {
         </div>
       </div>
       <div className="new-expense__actions">
-        <button onClick={cancleHandler}>Cancel</button>
+        <button type='button' onClick={cancleHandler}>Cancel</button>
         <button onClick={hideFormHandler}>Add Expense</button>
       </div>
     </form>

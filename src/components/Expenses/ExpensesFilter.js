@@ -8,7 +8,7 @@ const ExpensesFilter = (props) => {
   return (
     <div className='expenses-filter'>
       <div className='expenses-filter__control'>
-        <label>Filter by year</label>
+        <label>이번달 예산 : 80만원</label>
         <select value={props.selected} onChange={dropdownChangeHandler}>
           <option value='2022'>2022</option>
           <option value='2021'>2021</option>
